@@ -1,0 +1,120 @@
+1. Crea una colección llamada personas:
+
+proyecto> bd.create.Collection ("personas", {})
+Nuevo-proyecto> db.personas.insertMany ([{nombre:"Juan Peréz", edad: 30, ciudad:"Nueva York"},{nombre:"María González", edad: 35, ciudad:"Los Ángeles"},{nombre:"Carlos Ramírez", edad: 28, ciudad:"Nueva York"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6528a14df61c11b5b3161a52"),
+    '1': ObjectId("6528a14df61c11b5b3161a53"),
+    '2': ObjectId("6528a14df61c11b5b3161a54")
+  }
+
+2.Consulta todos los documentos en la base de datos “personas”:
+
+mongodb://locaNuevo-proyecto> db.personas.find ({})
+[
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a52"),
+    nombre: 'Juan Peréz',
+    edad: 30,
+    ciudad: 'Nueva York'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a53"),
+    nombre: 'María González',
+    edad: 35,
+    ciudad: 'Los Ángeles'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a54"),
+    nombre: 'Carlos Ramírez',
+    edad: 28,
+    ciudad: 'Nueva York'
+
+3.Realiza una consulta para encontrar todas las personas que tienen más de 25 años:
+
+mongodb://locNuevo-proyecto> db.personas.find ({ edad:{$gt:25}})
+[
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a52"),
+    nombre: 'Juan Peréz',
+    edad: 30,
+    ciudad: 'Nueva York'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a53"),
+    nombre: 'María González',
+    edad: 35,
+    ciudad: 'Los Ángeles'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a54"),
+    nombre: 'Carlos Ramírez',
+    edad: 28,
+    ciudad: 'Nueva York'
+  }
+
+4.Actualiza la edad de “Juan Pérez” para que tenga 31 años:
+
+mongodb://locNuevo-proyecto> db.personas.updateOne({nombre: "Juan Peréz"}, {$set:{edad:31}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+Nuevo-proyecto> db.personas.find({})
+[
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a52"),
+    nombre: 'Juan Peréz',
+    edad: 31,
+    ciudad: 'Nueva York'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a53"),
+    nombre: 'María González',
+    edad: 35,
+    ciudad: 'Los Ángeles'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a54"),
+    nombre: 'Carlos Ramírez',
+    edad: 28,
+    ciudad: 'Nueva York'
+  }
+
+5.Actualiza la ciudad de todas las personas que tienen entre 25 y 31 años y viven en Nueva York y reemplázalo por “Los Angeles”:
+
+Nuevo-proyecto> db.personas.updateMany({edad:{$gt:25, $lt:32} , cuidad:{$eq:"Nueva York"}}, {$set:{cuidad:"Los Ángeles"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Nuevo-proyecto> db.personas.find()
+[
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a52"),
+    nombre: 'Juan Peréz',
+    edad: 31,
+    ciudad: 'Nueva York'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a53"),
+    nombre: 'María González',
+    edad: 35,
+    ciudad: 'Los Ángeles'
+  },
+  {
+    _id: ObjectId("6528a14df61c11b5b3161a54"),
+    nombre: 'Carlos Ramírez',
+    edad: 28,
+    ciudad: 'Nueva York'
+  }
+]
+
+
